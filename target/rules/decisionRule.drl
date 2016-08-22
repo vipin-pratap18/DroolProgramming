@@ -1,0 +1,21 @@
+import com.sample.model.DecisionString
+ 
+rule "Rule Conversion Expiry For Age Less Than"
+  when
+     $decisionString : DecisionString(clientAge < less, $less:less, $lessValue:lessValue, $greater:greater, $greaterValue:greaterValue, $clientAge:clientAge)
+  then
+     System.out.println("Applying first rule ");
+     System.out.println("Making Decision For Client having age Less than "+$less+"with  : Age = "+$clientAge);
+     $decisionString.setReturnAge($decisionString.getLessValue());
+     System.out.println("After applying rule value is : "+ $decisionString.getReturnAge());
+end
+
+rule "Rule Conversion Expiry For Age Greater Than"
+  when
+     $decisionString : DecisionString(clientAge >= less, $less:less, $lessValue:lessValue, $greater:greater, $greaterValue:greaterValue, $clientAge:clientAge)
+  then
+     System.out.println("Applying second rule ");
+      System.out.println("Making Decision For Client having age greater than "+$greater+"with  : Age = "+$clientAge);
+     $decisionString.setReturnAge($decisionString.getGreaterValue());
+     System.out.println("After applying rule value is : "+ $decisionString.getReturnAge());
+end
